@@ -81,6 +81,15 @@ export default function Login() {
           </button>
         </form>
 
+        <div style={{ marginTop: '1.5rem', padding: '1rem', background: '#f3f4f6', borderRadius: '6px', fontSize: '0.85rem', color: '#4b5563' }}>
+          <p style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#111827' }}>🧪 Test Credentials:</p>
+          <ul style={{ margin: 0, paddingLeft: '1.2rem', listStyleType: 'disc' }}>
+            <li><strong>Admin:</strong> admin@test.com / admin123</li>
+            <li><strong>Seller:</strong> seller@test.com / admin</li>
+            <li><strong>Buyer:</strong> buyer@test.com / admin</li>
+          </ul>
+        </div>
+
         <p style={styles.footerText}>
           Don't have an account? <Link to="/register" style={styles.link}>Register here</Link>
         </p>

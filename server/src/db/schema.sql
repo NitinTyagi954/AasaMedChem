@@ -50,5 +50,5 @@ CREATE TABLE IF NOT EXISTS order_items (
 
 -- Seed Admin (password: admin123)
 INSERT INTO users (name, email, password_hash, role)
-VALUES ('Admin', 'admin@test.com', '$2b$10$ep/0tW2K0L6A.b4/5QxjueRStk5nO5K0n5W5A.b4/5QxjueRStk5n', 'admin')
-ON CONFLICT (email) DO NOTHING;
+VALUES ('Admin', 'admin@test.com', '$2b$10$dVBwdzu73hCGJb/wV63mjOzO/VJS3lBqc4OeOTl4KYzyF12kqCgyW', 'admin')
+ON CONFLICT (email) DO UPDATE SET password_hash = EXCLUDED.password_hash;
