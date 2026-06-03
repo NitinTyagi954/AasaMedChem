@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../../api/auth";
+import useAuthStore from "../../store/authStore";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { setUser } = useAuthStore();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,9 +18,19 @@ export default function Login() {
     try {
       const res = await loginUser(form);
       localStorage.setItem("token", res.data.data.token);
-      // Optional: Add a store update here if you're using Zustand
-      console.log("Logged in successfully:", res.data);
-      navigate("/");
+      
+      const loggedInUser = res.data.data.user;
+      setUser(loggedInUser);
+
+      if (loggedInUser.role === "admin") {
+        navigate("/admin/dashboard");
+      } else if (loggedInUser.role === "seller") {
+        navigate("/seller/dashboard");
+      } else if (loggedInUser.role === "buyer") {
+        navigate("/buyer/dashboard");
+      } else {
+        navigate("/");
+      }
     } catch (err) {
       setError(
         err.response?.data?.error || "Login failed. Please check your credentials."
